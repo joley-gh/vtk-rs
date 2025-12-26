@@ -6,6 +6,21 @@
 
 Rust bindings for the [Visualization Toolkit (VTK)](https://vtk.org/).
 
+## ⚠️ Fork Notice
+This is a fork of [jonaspleyer/vtk-rs](https://github.com/jonaspleyer/vtk-rs) specifically optimized for **macOS ARM (Apple Silicon)**.
+
+### Platform-Specific Implementation
+- **Target Platform**: macOS with ARM architecture (M1/M2/M3 chips)
+- **Modified Components**:
+  - `vtk-rs/generate_headers.sh`: Updated `sed` commands for macOS compatibility
+  - `vtk-rs/build.rs`: Added custom build configuration for ARM architecture
+- **VTK Version**: Tested with VTK 9.3+ via Homebrew
+
+### Key Changes from Upstream
+1. macOS ARM-specific sed command syntax in header generation
+2. Custom build.rs for proper linking on Apple Silicon
+3. Comprehensive geometric primitives implementation (Priority 1 complete)
+
 ## Scope
 The goal of this project is to provide safe and thin bindings.
 This means we are planning to support as much of the original functionality as possible, provided
@@ -34,6 +49,16 @@ In its current state, the crate will probably remain unusable for now.
 
 This package relies on a system install of `vtk`.
 We currently only test versions `>=9.1`.
+
+### macOS ARM (Apple Silicon)
+For this fork, VTK must be installed via Homebrew:
+```bash
+brew install vtk
+```
+
+The build system is specifically configured for ARM architecture and uses modified `sed` commands compatible with macOS.
+
+### Other Platforms (Original Implementation)
 In some scenarios, it might be necessary to install additional dependencies.
 Otherwise, compilation of the `cmake` part might fail with spurious linker errors.
 
@@ -43,8 +68,17 @@ Otherwise, compilation of the `cmake` part might fail with spurious linker error
 | Ubuntu 22 & 24 | `apt install libvtk9.1 libvtk9-dev` |
 | Macos 13 & 14 | `brew install vtk` |
 
+**Note**: For macOS ARM users of this fork, ensure you're using the Homebrew installation as the build system expects ARM-specific paths and configurations.
+
 ## Building
 `vtk-rs` will try to determine the path for `vtk` automatically.
+
+### macOS ARM Build Process
+This fork includes a custom `build.rs` that handles ARM-specific configuration:
+1. Run `./vtk-rs/generate_headers.sh` to generate CXX bridge headers (uses macOS-compatible sed)
+2. Build with `cargo build` - the custom build.rs handles VTK library detection
+
+### Build Environment Flags
 It is possible to control the compilation process via environment flags.
 | Flag | Effect |
 | --- | --- |
