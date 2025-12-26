@@ -10,38 +10,116 @@ mod macros;
 use macros::*;
 
 // Exposed API
+mod algorithm_output_port;
 mod vtk_abstract_mapper;
 mod vtk_abstract_mapper_3d;
+mod vtk_actor;
 mod vtk_algorithm;
 mod vtk_algorithm_output;
+mod vtk_axes_actor;
+mod vtk_camera;
+mod vtk_cell_array;
+mod vtk_cell_data;
+mod vtk_cell_picker;
+mod vtk_cone_source;
+mod vtk_cylinder_source;
+mod vtk_cube_source;
+mod vtk_plane_source;
+mod vtk_disk_source;
+mod vtk_arrow_source;
+mod vtk_regular_polygon_source;
+mod vtk_cube_axes_actor;
 mod vtk_data_object;
+mod vtk_prop_picker;
+mod vtk_double_array;
 mod vtk_executive;
 mod vtk_information;
 mod vtk_information_vector;
+mod vtk_int_array;
+mod vtk_interactor_style_custom;
+mod vtk_interactor_style_trackball_camera;
+mod vtk_line_source;
 mod vtk_mapper;
 mod vtk_named_colors;
 mod vtk_object;
 mod vtk_object_base;
+mod vtk_orientation_marker_widget;
+mod vtk_points;
+mod vtk_point_data;
 mod vtk_poly_data;
 mod vtk_poly_data_algorithm;
 mod vtk_poly_data_mapper;
+mod vtk_property;
+mod vtk_render_window;
+mod vtk_render_window_interactor;
+mod vtk_renderer;
 mod vtk_sphere;
 mod vtk_sphere_source;
+mod vtk_tube_filter;
+mod vtk_glyph_3d;
 
+// VTK Initialization
+// This function must be called before using any VTK objects
+extern "C" {
+    fn vtk_force_init();
+}
+
+/// Initialize VTK modules. This is called automatically when using VTK objects.
+#[doc(hidden)]
+pub fn init_vtk() {
+    use std::sync::Once;
+    static INIT: Once = Once::new();
+    INIT.call_once(|| {
+        unsafe {
+            vtk_force_init();
+        }
+    });
+}
+
+pub use algorithm_output_port::*;
 pub use vtk_abstract_mapper::*;
 pub use vtk_abstract_mapper_3d::*;
+pub use vtk_actor::*;
 pub use vtk_algorithm::*;
 pub use vtk_algorithm_output::*;
+pub use vtk_axes_actor::*;
+pub use vtk_camera::*;
+pub use vtk_cell_array::*;
+pub use vtk_cell_data::*;
+pub use vtk_cell_picker::*;
+pub use vtk_cone_source::*;
+pub use vtk_cylinder_source::*;
+pub use vtk_cube_source::*;
+pub use vtk_disk_source::*;
+pub use vtk_plane_source::*;
+pub use vtk_arrow_source::*;
+pub use vtk_regular_polygon_source::*;
+pub use vtk_cube_axes_actor::*;
 pub use vtk_data_object::*;
+pub use vtk_prop_picker::*;
+pub use vtk_double_array::*;
 pub use vtk_executive::*;
 pub use vtk_information::*;
 pub use vtk_information_vector::*;
+pub use vtk_int_array::*;
+pub use vtk_interactor_style_custom::*;
+pub use vtk_interactor_style_trackball_camera::*;
+pub use vtk_line_source::*;
 pub use vtk_mapper::*;
 pub use vtk_named_colors::*;
 pub use vtk_object::*;
 pub use vtk_object_base::*;
+pub use vtk_orientation_marker_widget::*;
+pub use vtk_points::*;
+pub use vtk_point_data::*;
 pub use vtk_poly_data::*;
 pub use vtk_poly_data_algorithm::*;
 pub use vtk_poly_data_mapper::*;
+pub use vtk_property::*;
+pub use vtk_render_window::*;
+pub use vtk_render_window_interactor::*;
+pub use vtk_renderer::*;
 pub use vtk_sphere::*;
 pub use vtk_sphere_source::*;
+pub use vtk_tube_filter::*;
+pub use vtk_glyph_3d::*;

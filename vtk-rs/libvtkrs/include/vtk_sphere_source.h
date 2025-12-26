@@ -1,5 +1,6 @@
 #include <vtkNew.h>
 #include <vtkSphereSource.h>
+#include <vtkAlgorithmOutput.h>
 
 vtkSphereSource* vtk_sphere_source_new();
 void vtk_sphere_source_delete(vtkSphereSource& sphere_source);
@@ -11,3 +12,4 @@ void vtk_sphere_source_set_phi_resolution(vtkSphereSource& sphere_source, int64_
 void vtk_sphere_source_set_theta_resolution(vtkSphereSource& sphere_source, int64_t resolution);
 int64_t vtk_sphere_source_get_phi_resolution(const vtkSphereSource& sphere_source);
 int64_t vtk_sphere_source_get_theta_resolution(const vtkSphereSource& sphere_source);
+vtkAlgorithmOutput* sphere_source_get_output_port(vtkSphereSource& sphere_source);

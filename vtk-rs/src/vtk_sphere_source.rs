@@ -2,8 +2,10 @@
 mod ffi {
     unsafe extern "C++" {
         include!("vtk_sphere_source.h");
+        include!("vtk_algorithm_output.h");
 
         type vtkSphereSource;
+        type vtkAlgorithmOutput;
 
         fn vtk_sphere_source_new() -> *mut vtkSphereSource;
         fn vtk_sphere_source_delete(ptr: Pin<&mut vtkSphereSource>);
@@ -13,14 +15,17 @@ mod ffi {
         fn vtk_sphere_source_get_center(sphere_source: &vtkSphereSource) -> [f64; 3];
         fn vtk_sphere_source_set_phi_resolution(
             sphere_source: Pin<&mut vtkSphereSource>,
-            resolution: i64,
+            resolution: i64
         );
         fn vtk_sphere_source_get_phi_resolution(sphere_source: &vtkSphereSource) -> i64;
         fn vtk_sphere_source_set_theta_resolution(
             sphere_source: Pin<&mut vtkSphereSource>,
-            resolution: i64,
+            resolution: i64
         );
         fn vtk_sphere_source_get_theta_resolution(sphere_source: &vtkSphereSource) -> i64;
+        unsafe fn sphere_source_get_output_port(
+            sphere_source: Pin<&mut vtkSphereSource>
+        ) -> *mut vtkAlgorithmOutput;
     }
 }
 
@@ -72,6 +77,14 @@ impl SphereSource {
     pub fn set_theta_resolution(&mut self, theta_resolution: i64) {
         ffi::vtk_sphere_source_set_theta_resolution(self.ptr.as_mut(), theta_resolution)
     }
+
+    #[doc(alias = "GetOutputPort")]
+    pub fn get_output_port(&mut self) -> crate::AlgorithmOutputPort {
+        unsafe {
+            let ptr = ffi::sphere_source_get_output_port(self.ptr.as_mut());
+            crate::AlgorithmOutputPort::from_raw(ptr as *mut std::ffi::c_void)
+        }
+    }
 }
 
 #[cfg(test)]
@@ -94,9 +107,9 @@ mod test {
         let mut sphere = SphereSource::new();
         let c1 = sphere.get_center();
         assert_abs_diff_eq!(c1, [0.0; 3]);
-        sphere.set_center([1., 2., 3.]);
+        sphere.set_center([1.0, 2.0, 3.0]);
         let c2 = sphere.get_center();
-        assert_abs_diff_eq!(c2, [1., 2., 3.]);
+        assert_abs_diff_eq!(c2, [1.0, 2.0, 3.0]);
     }
 
     #[test]

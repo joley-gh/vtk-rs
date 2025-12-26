@@ -12,6 +12,8 @@ vtkRenderingCore
 vtkRenderingContextOpenGL2
 vtkRenderingOpenGL2
 vtkRenderingGL2PSOpenGL2
+vtkRenderingAnnotation
 vtkInteractionStyle
+vtkInteractionWidgets
 vtkRenderingFreeType
 vtksys

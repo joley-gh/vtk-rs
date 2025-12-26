@@ -7,9 +7,14 @@
 
 #include <vtkNew.h>
 #include <vtkSphereSource.h>
+#include <vtkAlgorithmOutput.h>
 
 vtkSphereSource* vtk_sphere_source_new() {
-    return vtkSphereSource::New();
+    vtkSphereSource* obj = vtkSphereSource::New();
+    if (!obj) {
+        throw std::runtime_error("Failed to create vtkSphereSource");
+    }
+    return obj;
 }
 
 void vtk_sphere_source_delete(vtkSphereSource& sphere_source) {
@@ -51,4 +56,8 @@ void vtk_sphere_source_set_theta_resolution(
 
 int64_t vtk_sphere_source_get_theta_resolution(const vtkSphereSource& sphere_source) {
     return const_cast<vtkSphereSource&>(sphere_source).GetThetaResolution();
+}
+
+vtkAlgorithmOutput* sphere_source_get_output_port(vtkSphereSource& sphere_source) {
+    return sphere_source.GetOutputPort();
 }

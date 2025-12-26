@@ -1,11 +1,10 @@
-macro_rules! define_object(
+macro_rules! define_object {
     (
         $link:literal,
-        @name $name:ident, $ptr_type:ty,
-        @new $new_func:expr,
-        $(@clone $clone_func:expr,)?
-        @delete $drop_func:expr
-        $(,@inherit $trait:ident)?
+        @ name $name:ident,
+        $ptr_type:ty,
+        @ new $new_func:expr,
+        $(@clone $clone_func:expr,)? @delete $drop_func:expr $(, @ inherit $trait:ident)?
     ) => {
         #[doc = concat!("[`vtk", stringify!($name), "`](", $link, ")")]
         #[repr(transparent)]
@@ -16,10 +15,38 @@ macro_rules! define_object(
         impl $name {
             #[doc(alias = "New")]
             pub fn new() -> Self {
-                let pinned = unsafe { core::pin::Pin::new_unchecked(&mut *($new_func)()) };
+                // Ensure VTK is initialized before creating objects
+                crate::init_vtk();
+                
+                let raw_ptr = ($new_func)();
+                
+                // Check for null pointer
+                if raw_ptr.is_null() {
+                    panic!("VTK object creation failed: {} returned null pointer", stringify!($new_func));
+                }
+                
+                let pinned = unsafe { 
+                    core::pin::Pin::new_unchecked(&mut *raw_ptr) 
+                };
                 Self {
                     ptr: pinned,
                 }
+            }
+
+            /// Get a raw pointer to the underlying VTK object.
+            /// 
+            /// # Safety
+            /// The returned pointer is only valid as long as this object is alive.
+            pub fn as_ptr(&self) -> *const $ptr_type {
+                self.ptr.as_ref().get_ref() as *const _
+            }
+
+            /// Get a mutable raw pointer to the underlying VTK object.
+            /// 
+            /// # Safety
+            /// The returned pointer is only valid as long as this object is alive.
+            pub fn as_mut_ptr(&mut self) -> *mut $ptr_type {
+                unsafe { core::pin::Pin::get_unchecked_mut(self.ptr.as_mut()) as *mut _ }
             }
         }
 
@@ -67,10 +94,10 @@ macro_rules! define_object(
                 }
             }
         )?
-    }
-);
+    };
+}
 
-macro_rules! impl_as_ref_mut(
+macro_rules! impl_as_ref_mut {
     ($pin_type:ty, $ptr_type:ty) => {
         impl core::convert::AsRef<$pin_type> for $ptr_type {
             fn as_ref(&self) -> &$pin_type {
@@ -88,9 +115,9 @@ macro_rules! impl_as_ref_mut(
             }
         }
     };
-);
+}
 
-macro_rules! perform_tests (
+macro_rules! perform_tests {
     ($name:ident vtkObjectBase) => {
         #[cfg(test)]
         mod vtk_object_base {
@@ -291,9 +318,9 @@ macro_rules! perform_tests (
     ($name:ident vtkDataSet) => {
         crate::perform_tests!($name vtkDataObject);
     };
-);
+}
 
-macro_rules! inherit(
+macro_rules! inherit {
     ($name:ident $trait:ident $ptr_type:ty) => {
         crate::inherit_only!($name $trait $ptr_type);
         crate::perform_tests!($name $trait);
@@ -301,9 +328,9 @@ macro_rules! inherit(
     (@notest $name:ident $trait:ident $ptr_type:ty) => {
         crate::inherit_only!($name $trait $ptr_type);
     };
-);
+}
 
-macro_rules! inherit_only(
+macro_rules! inherit_only {
     ($name:ident vtkObjectBase $ptr_type:ty) => {
         impl crate::vtk_object_base::private::Sealed for $name {}
         crate::impl_as_ref_mut!(crate::vtk_object_base::ffi::vtkObjectBase, $ptr_type);
@@ -475,7 +502,7 @@ macro_rules! inherit_only(
 
         crate::inherit_only!($name vtkObject $ptr_type);
     };
-);
+}
 
 pub(crate) use define_object;
 pub(crate) use impl_as_ref_mut;

@@ -1,0 +1,231 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "name": "Debug unit tests in library 'vtk_rs'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
+            "name": "Debug example 'camera_control'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=camera_control",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'camera_control'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=camera_control",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
+            "name": "Debug example 'event_test'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=event_test",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'event_test'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=event_test",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
+            "name": "Debug example 'interactive_picking'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=interactive_picking",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'interactive_picking'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=interactive_picking",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
+            "name": "Debug example 'picking_demo'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=picking_demo",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'picking_demo'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=picking_demo",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
+            "name": "Debug example 'property_demo'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=property_demo",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'property_demo'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=property_demo",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
+            "name": "Debug example 'sphere_source'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=sphere_source",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'sphere_source'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=sphere_source",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
+            "name": "Debug example 'line_source_demo'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=line_source_demo",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'line_source_demo'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=line_source_demo",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
+            "name": "Debug unit tests in library 'vtk_rs_link'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--package=vtk-rs-link"
+                ]
+            }
+        },
+        {
+            "name": "Debug executable 'vtk-wrap'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--bin=vtk-wrap",
+                    "--package=vtk-wrap"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in executable 'vtk-wrap'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--bin=vtk-wrap",
+                    "--package=vtk-wrap"
+                ]
+            }
+        }
+    ]
+}
