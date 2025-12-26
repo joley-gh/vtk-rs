@@ -75,6 +75,11 @@ add_library(vtkrs STATIC
    ${PROJECT_SOURCE_DIR}/include/vtk_world_point_picker.h
    ${PROJECT_SOURCE_DIR}/include/vtk_point_picker.h
    ${PROJECT_SOURCE_DIR}/include/vtk_area_picker.h
+   ${PROJECT_SOURCE_DIR}/include/vtk_parametric_function.h
+   ${PROJECT_SOURCE_DIR}/include/vtk_parametric_function_source.h
+   ${PROJECT_SOURCE_DIR}/include/vtk_parametric_torus.h
+   ${PROJECT_SOURCE_DIR}/include/vtk_parametric_klein.h
+   ${PROJECT_SOURCE_DIR}/include/vtk_parametric_mobius.h
 )
 
 if (VTK094)
@@ -136,6 +141,10 @@ target_sources(vtkrs
         ${PROJECT_SOURCE_DIR}/src/vtk_world_point_picker.cpp
         ${PROJECT_SOURCE_DIR}/src/vtk_point_picker.cpp
         ${PROJECT_SOURCE_DIR}/src/vtk_area_picker.cpp
+        ${PROJECT_SOURCE_DIR}/src/vtk_parametric_function_source.cpp
+        ${PROJECT_SOURCE_DIR}/src/vtk_parametric_torus.cpp
+        ${PROJECT_SOURCE_DIR}/src/vtk_parametric_klein.cpp
+        ${PROJECT_SOURCE_DIR}/src/vtk_parametric_mobius.cpp
 )
 set_target_properties(vtkrs PROPERTIES LINKER_LANGUAGE CXX)
 

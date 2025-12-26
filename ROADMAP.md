@@ -174,13 +174,42 @@ All interaction widgets and selection tools implemented with comprehensive examp
 
 Mathematical surfaces and specialized geometric sources.
 
-### P3.1 Parametric Function Source - `vtk_parametric_function_source.rs`
-- [ ] Create new module and C++ bindings
-- [ ] `new()` / `delete()`
-- [ ] `set_parametric_function(func)` - torus, mobius, klein bottle, etc.
-- [ ] `set_u_resolution(n)` / `set_v_resolution(n)`
-- [ ] `set_w_resolution(n)` - for 3D parametric
-- [ ] `get_output_port()`
+### P3.1 Parametric Function Source - `vtk_parametric_function_source.rs` ✅ COMPLETE
+- [x] Create new module and C++ bindings
+- [x] `new()` / `delete()`
+- [x] `set_parametric_function(func)` - accepts void pointer for cross-module compatibility
+- [x] `set_u_resolution(n)` / `set_v_resolution(n)` / `set_w_resolution(n)`
+- [x] `output_port()` - renamed to avoid trait method shadowing
+- [x] **Parametric Torus** - `vtk_parametric_torus.rs`
+  - [x] `set_ring_radius(r)` / `get_ring_radius()` - major radius
+  - [x] `set_cross_section_radius(r)` / `get_cross_section_radius()` - minor radius
+  - [x] `as_parametric_function()` → void pointer
+- [x] **Parametric Klein Bottle** - `vtk_parametric_klein.rs`
+  - [x] Non-orientable surface (no distinct inside/outside)
+  - [x] `as_parametric_function()` → void pointer
+- [x] **Parametric Mobius Strip** - `vtk_parametric_mobius.rs`
+  - [x] One-sided surface topology
+  - [x] `set_radius(r)` / `get_radius()`
+  - [x] `as_parametric_function()` → void pointer
+- [x] Example: `parametric_surfaces.rs` - demonstrates all three surfaces with helper function pattern
+- [x] **FFI Pattern**: Void pointer casting for cross-module type compatibility
+- [x] **Architecture Note**: Each parametric function inherits from vtkObjectBase (not vtkParametricFunction due to macro limitations)
+
+#### Future Parametric Functions (Optional Expansion)
+- [ ] **vtkParametricEllipsoid** - Configurable ellipsoid (stretched sphere)
+  - [ ] `set_x_radius(r)` / `set_y_radius(r)` / `set_z_radius(r)`
+  - [ ] Useful for planetary bodies, stretched shapes
+- [ ] **vtkParametricBoy** - Boy's surface (non-orientable, immersion of projective plane)
+  - [ ] Mathematical topology demonstration
+- [ ] **vtkParametricConicSpiral** - Conical spiral pattern
+  - [ ] `set_a(val)` / `set_b(val)` / `set_c(val)` / `set_n(val)`
+  - [ ] Useful for spiral staircases, springs, decorative elements
+- [ ] **vtkParametricSuperEllipsoid** - Superellipsoid with power parameters
+  - [ ] `set_n1(val)` / `set_n2(val)` - control roundness
+  - [ ] Morphs between sphere, cube, and other shapes
+- [ ] **vtkParametricRoman** - Roman surface (Steiner surface)
+  - [ ] Another non-orientable surface example
+  - [ ] `set_radius(r)`
 
 ### P3.2 Superquadric Source - `vtk_superquadric_source.rs`
 - [ ] Create new module and C++ bindings

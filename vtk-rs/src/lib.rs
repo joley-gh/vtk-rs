@@ -61,6 +61,11 @@ mod vtk_glyph_3d;
 mod vtk_world_point_picker;
 mod vtk_point_picker;
 mod vtk_area_picker;
+mod vtk_parametric_function;
+mod vtk_parametric_function_source;
+mod vtk_parametric_torus;
+mod vtk_parametric_klein;
+mod vtk_parametric_mobius;
 
 // VTK Initialization
 // This function must be called before using any VTK objects
@@ -137,3 +142,8 @@ pub use vtk_glyph_3d::*;
 pub use vtk_world_point_picker::*;
 pub use vtk_point_picker::*;
 pub use vtk_area_picker::*;
+// pub use vtk_parametric_function::*;  // No public types to export from base class
+pub use vtk_parametric_function_source::*;
+pub use vtk_parametric_torus::*;
+pub use vtk_parametric_klein::*;
+pub use vtk_parametric_mobius::*;
