@@ -121,13 +121,16 @@ Advanced user interaction capabilities for object selection and manipulation.
 - [ ] Pick all objects within a 2D rectangular region
 - [ ] Works with rubber band interactions
 
-### P2.3 Point Picker - `vtk_point_picker.rs`
-- [ ] Create new module and C++ bindings
-- [ ] `new()` / `delete()`
-- [ ] `pick(x, y, z, renderer)` → bool
-- [ ] `get_point_id()` / `get_pick_position()`
-- [ ] Pick individual points from point clouds
-- [ ] Complements existing CellPicker and PropPicker
+### P2.3 Point Picker - `vtk_point_picker.rs` ✅ COMPLETE
+- [x] Create new module and C++ bindings
+- [x] `new()` / `delete()`
+- [x] `pick(x, y, z, renderer)` → bool
+- [x] `get_point_id()` → returns vertex ID (-1 if no pick)
+- [x] `get_pick_position()` → (x, y, z)
+- [x] Pick individual points (vertices) from mesh geometry
+- [x] Unlike WorldPointPicker, returns meaningful success/failure
+- [x] Note: SphereSource.get_output_port() has trait/method collision - use explicit call: `SphereSource::get_output_port(&mut sphere)`
+- [x] Example: `interactive_point_picker.rs` - click-to-pick vertices with red marker visualization
 
 ### P2.4 World Point Picker - `vtk_world_point_picker.rs` ✅ COMPLETE
 - [x] Create new module and C++ bindings
