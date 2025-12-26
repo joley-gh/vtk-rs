@@ -3,9 +3,11 @@ mod ffi {
     unsafe extern "C++" {
         include!("vtk_poly_data_mapper.h");
         include!("vtk_algorithm_output.h");
+        include!("vtk_mapper.h");
 
         type vtkPolyDataMapper;
         type vtkAlgorithmOutput;
+        type vtkMapper;
 
         fn poly_data_mapper_new() -> *mut vtkPolyDataMapper;
         fn poly_data_mapper_delete(pdm: Pin<&mut vtkPolyDataMapper>);
@@ -43,6 +45,11 @@ impl PolyDataMapper {
             let algo_output = ptr as *mut ffi::vtkAlgorithmOutput;
             ffi::poly_data_mapper_set_input_connection(self.ptr.as_mut(), algo_output);
         }
+    }
+
+    /// Get raw pointer for FFI (internal use)
+    pub(crate) fn as_raw_ptr(&mut self) -> *mut ffi::vtkMapper {
+        self.as_mut_ptr() as *mut ffi::vtkMapper
     }
 }
 

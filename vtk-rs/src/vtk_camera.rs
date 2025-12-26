@@ -1,5 +1,5 @@
 #[cxx::bridge]
-pub(crate) mod ffi {
+pub mod ffi {
     unsafe extern "C++" {
         include!("vtk_camera.h");
 
@@ -120,6 +120,32 @@ impl Camera {
         let (mut near, mut far) = (0.0, 0.0);
         ffi::camera_get_clipping_range(self.ptr.as_mut(), &mut near, &mut far);
         (near, far)
+    }
+
+    /// Get raw pointer for FFI (internal use)
+    pub(crate) fn as_raw_ptr(&mut self) -> *mut ffi::vtkCamera {
+        self.as_mut_ptr()
+    }
+
+    /// Get raw pointer as vtkObject for observer support
+    pub(crate) fn as_vtk_object_ptr(&mut self) -> *mut crate::vtk_command::ffi::vtkObject {
+        self.as_mut_ptr() as *mut crate::vtk_command::ffi::vtkObject
+    }
+}
+
+impl crate::vtk_command::Observable for Camera {
+    unsafe fn add_observer(&mut self, event: usize, command: &mut crate::Command) -> usize {
+        use core::pin::Pin;
+        let obj_ptr = self.as_vtk_object_ptr();
+        let obj_ref = Pin::new_unchecked(&mut *obj_ptr);
+        crate::vtk_command::ffi::vtk_object_add_observer(obj_ref, event, command.as_mut())
+    }
+
+    unsafe fn remove_observer(&mut self, tag: usize) {
+        use core::pin::Pin;
+        let obj_ptr = self.as_vtk_object_ptr();
+        let obj_ref = Pin::new_unchecked(&mut *obj_ptr);
+        crate::vtk_command::ffi::vtk_object_remove_observer(obj_ref, tag);
     }
 }
 

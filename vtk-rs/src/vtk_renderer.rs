@@ -136,7 +136,7 @@ pub struct CameraRef {
 }
 
 impl CameraRef {
-    pub(crate) fn as_mut_ptr(&mut self) -> *mut ffi::vtkCamera {
+    pub fn as_mut_ptr(&mut self) -> *mut ffi::vtkCamera {
         self.ptr
     }
 
@@ -286,6 +286,22 @@ impl CameraRef {
             );
         }
         (near, far)
+    }
+}
+
+impl crate::vtk_command::Observable for CameraRef {
+    unsafe fn add_observer(&mut self, event: usize, command: &mut crate::Command) -> usize {
+        use core::pin::Pin;
+        let obj_ptr = self.ptr as *mut crate::vtk_command::ffi::vtkObject;
+        let obj_ref = Pin::new_unchecked(&mut *obj_ptr);
+        crate::vtk_command::ffi::vtk_object_add_observer(obj_ref, event, command.as_mut())
+    }
+
+    unsafe fn remove_observer(&mut self, tag: usize) {
+        use core::pin::Pin;
+        let obj_ptr = self.ptr as *mut crate::vtk_command::ffi::vtkObject;
+        let obj_ref = Pin::new_unchecked(&mut *obj_ptr);
+        crate::vtk_command::ffi::vtk_object_remove_observer(obj_ref, tag);
     }
 }
 

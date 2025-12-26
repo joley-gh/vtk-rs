@@ -36,6 +36,7 @@ add_library(vtkrs STATIC
    ${PROJECT_SOURCE_DIR}/include/vtk_cell_array.h
    ${PROJECT_SOURCE_DIR}/include/vtk_cell_data.h
    ${PROJECT_SOURCE_DIR}/include/vtk_cell_picker.h
+   ${PROJECT_SOURCE_DIR}/include/vtk_command.h
    ${PROJECT_SOURCE_DIR}/include/vtk_cone_source.h
    ${PROJECT_SOURCE_DIR}/include/vtk_cylinder_source.h
    ${PROJECT_SOURCE_DIR}/include/vtk_cube_source.h
@@ -82,6 +83,8 @@ add_library(vtkrs STATIC
    ${PROJECT_SOURCE_DIR}/include/vtk_parametric_mobius.h
    ${PROJECT_SOURCE_DIR}/include/vtk_superquadric_source.h
    ${PROJECT_SOURCE_DIR}/include/vtk_text_source.h
+   ${PROJECT_SOURCE_DIR}/include/vtk_follower.h
+   ${PROJECT_SOURCE_DIR}/include/vtk_vector_text.h
 )
 
 if (VTK094)
@@ -103,6 +106,7 @@ target_sources(vtkrs
         ${PROJECT_SOURCE_DIR}/src/vtk_cell_array.cpp
         ${PROJECT_SOURCE_DIR}/src/vtk_cell_data.cpp
         ${PROJECT_SOURCE_DIR}/src/vtk_cell_picker.cpp
+        ${PROJECT_SOURCE_DIR}/src/vtk_command.cpp
         ${PROJECT_SOURCE_DIR}/src/vtk_cone_source.cpp
         ${PROJECT_SOURCE_DIR}/src/vtk_cylinder_source.cpp
         ${PROJECT_SOURCE_DIR}/src/vtk_cube_source.cpp
@@ -149,6 +153,8 @@ target_sources(vtkrs
         ${PROJECT_SOURCE_DIR}/src/vtk_parametric_mobius.cpp
         ${PROJECT_SOURCE_DIR}/src/vtk_superquadric_source.cpp
         ${PROJECT_SOURCE_DIR}/src/vtk_text_source.cpp
+        ${PROJECT_SOURCE_DIR}/src/vtk_follower.cpp
+        ${PROJECT_SOURCE_DIR}/src/vtk_vector_text.cpp
 )
 set_target_properties(vtkrs PROPERTIES LINKER_LANGUAGE CXX)
 

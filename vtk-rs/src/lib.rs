@@ -18,9 +18,11 @@ mod vtk_algorithm;
 mod vtk_algorithm_output;
 mod vtk_axes_actor;
 mod vtk_camera;
+pub use vtk_camera::ffi as camera_ffi;
 mod vtk_cell_array;
 mod vtk_cell_data;
 mod vtk_cell_picker;
+mod vtk_command;
 mod vtk_cone_source;
 mod vtk_cylinder_source;
 mod vtk_cube_source;
@@ -68,6 +70,8 @@ mod vtk_parametric_klein;
 mod vtk_parametric_mobius;
 mod vtk_superquadric_source;
 mod vtk_text_source;
+mod vtk_follower;
+mod vtk_vector_text;
 
 // VTK Initialization
 // This function must be called before using any VTK objects
@@ -98,6 +102,7 @@ pub use vtk_camera::*;
 pub use vtk_cell_array::*;
 pub use vtk_cell_data::*;
 pub use vtk_cell_picker::*;
+pub use vtk_command::*;
 pub use vtk_cone_source::*;
 pub use vtk_cylinder_source::*;
 pub use vtk_cube_source::*;
@@ -151,3 +156,5 @@ pub use vtk_parametric_klein::*;
 pub use vtk_parametric_mobius::*;
 pub use vtk_superquadric_source::*;
 pub use vtk_text_source::*;
+pub use vtk_follower::*;
+pub use vtk_vector_text::*;
