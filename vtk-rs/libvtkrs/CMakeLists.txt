@@ -54,6 +54,7 @@ add_library(vtkrs STATIC
    ${PROJECT_SOURCE_DIR}/include/vtk_int_array.h
    ${PROJECT_SOURCE_DIR}/include/vtk_interactor_style_custom.h
    ${PROJECT_SOURCE_DIR}/include/vtk_interactor_style_trackball_camera.h
+   ${PROJECT_SOURCE_DIR}/include/vtk_interactor_style_rubber_band_pick.h
    ${PROJECT_SOURCE_DIR}/include/vtk_line_source.h
    ${PROJECT_SOURCE_DIR}/include/vtk_mapper.h
    ${PROJECT_SOURCE_DIR}/include/vtk_named_colors.h
@@ -73,6 +74,7 @@ add_library(vtkrs STATIC
    ${PROJECT_SOURCE_DIR}/include/vtk_glyph_3d.h
    ${PROJECT_SOURCE_DIR}/include/vtk_world_point_picker.h
    ${PROJECT_SOURCE_DIR}/include/vtk_point_picker.h
+   ${PROJECT_SOURCE_DIR}/include/vtk_area_picker.h
 )
 
 if (VTK094)
@@ -111,6 +113,7 @@ target_sources(vtkrs
         ${PROJECT_SOURCE_DIR}/src/vtk_int_array.cpp
         ${PROJECT_SOURCE_DIR}/src/vtk_interactor_style_custom.cpp
         ${PROJECT_SOURCE_DIR}/src/vtk_interactor_style_trackball_camera.cpp
+        ${PROJECT_SOURCE_DIR}/src/vtk_interactor_style_rubber_band_pick.cpp
         ${PROJECT_SOURCE_DIR}/src/vtk_line_source.cpp
         ${PROJECT_SOURCE_DIR}/src/vtk_mapper.cpp
         ${PROJECT_SOURCE_DIR}/src/vtk_named_colors.cpp
@@ -132,6 +135,7 @@ target_sources(vtkrs
         ${PROJECT_SOURCE_DIR}/src/vtk_glyph_3d.cpp
         ${PROJECT_SOURCE_DIR}/src/vtk_world_point_picker.cpp
         ${PROJECT_SOURCE_DIR}/src/vtk_point_picker.cpp
+        ${PROJECT_SOURCE_DIR}/src/vtk_area_picker.cpp
 )
 set_target_properties(vtkrs PROPERTIES LINKER_LANGUAGE CXX)
 

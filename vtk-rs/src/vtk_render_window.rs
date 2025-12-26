@@ -16,6 +16,21 @@ mod ffi {
         fn render_window_set_size(window: Pin<&mut vtkRenderWindow>, width: i32, height: i32);
         fn render_window_set_window_name(window: Pin<&mut vtkRenderWindow>, name: &str);
         fn render_window_render(window: Pin<&mut vtkRenderWindow>);
+        fn render_window_get_size(
+            window: Pin<&mut vtkRenderWindow>,
+            width: &mut i32,
+            height: &mut i32
+        );
+        unsafe fn render_window_get_pixel_data(
+            window: Pin<&mut vtkRenderWindow>,
+            data: *mut u8,
+            size: i32
+        );
+        unsafe fn render_window_set_pixel_data(
+            window: Pin<&mut vtkRenderWindow>,
+            data: *const u8,
+            size: i32
+        );
     }
 }
 
@@ -44,6 +59,33 @@ impl RenderWindow {
 
     pub fn render(&mut self) {
         ffi::render_window_render(self.ptr.as_mut());
+    }
+
+    pub fn get_size(&mut self) -> (i32, i32) {
+        let mut width: i32 = 0;
+        let mut height: i32 = 0;
+        ffi::render_window_get_size(self.ptr.as_mut(), &mut width, &mut height);
+        (width, height)
+    }
+
+    /// Get RGBA pixel data from the render window
+    pub fn get_pixel_data(&mut self) -> Vec<u8> {
+        let (width, height) = self.get_size();
+        let size = (width * height * 4) as usize;
+        let mut data = vec![0u8; size];
+
+        unsafe {
+            ffi::render_window_get_pixel_data(self.ptr.as_mut(), data.as_mut_ptr(), size as i32);
+        }
+
+        data
+    }
+
+    /// Set RGBA pixel data to the render window (writes to front buffer and displays immediately)
+    pub fn set_pixel_data(&mut self, data: &[u8]) {
+        unsafe {
+            ffi::render_window_set_pixel_data(self.ptr.as_mut(), data.as_ptr(), data.len() as i32);
+        }
     }
 }
 

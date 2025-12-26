@@ -174,6 +174,18 @@ extern "C" {
         style: *mut vtkInteractorStyleCustom,
         callback_id: i64
     );
+    fn interactor_style_custom_set_selection_mode(
+        style: *mut vtkInteractorStyleCustom,
+        enabled: bool
+    );
+    fn interactor_style_custom_is_moving(style: *mut vtkInteractorStyleCustom) -> bool;
+    fn interactor_style_custom_get_selection_positions(
+        style: *mut vtkInteractorStyleCustom,
+        start_x: *mut i32,
+        start_y: *mut i32,
+        end_x: *mut i32,
+        end_y: *mut i32
+    );
 }
 
 // Wrapper struct for safe Rust API
@@ -255,6 +267,254 @@ impl InteractorStyleCustom {
             interactor_style_custom_set_key_press_callback_id(self.ptr, callback_id);
         }
     }
+
+    /// Enable or disable selection mode.
+    /// When selection mode is enabled, left-click-drag will not rotate the camera,
+    /// allowing for area selection operations.
+    pub fn set_selection_mode(&mut self, enabled: bool) {
+        unsafe {
+            interactor_style_custom_set_selection_mode(self.ptr, enabled);
+        }
+    }
+
+    /// Check if currently in selection/moving state
+    pub fn is_moving(&self) -> bool {
+        unsafe { interactor_style_custom_is_moving(self.ptr) }
+    }
+
+    /// Get current selection rectangle positions
+    pub fn get_selection_positions(&self) -> (i32, i32, i32, i32) {
+        unsafe {
+            let mut start_x = 0;
+            let mut start_y = 0;
+            let mut end_x = 0;
+            let mut end_y = 0;
+            interactor_style_custom_get_selection_positions(
+                self.ptr,
+                &mut start_x,
+                &mut start_y,
+                &mut end_x,
+                &mut end_y
+            );
+            (start_x, start_y, end_x, end_y)
+        }
+    }
+}
+
+/// Draw a rubber band selection rectangle on the render window.
+/// This is application logic that uses VTK render window pixel manipulation.
+///
+/// This is the unoptimized version that re-renders on every call.
+/// For smooth, flicker-free drawing during mouse drag, use `draw_rubber_band_rectangle_cached` instead.
+pub fn draw_rubber_band_rectangle(
+    render_window: &mut crate::RenderWindow,
+    start_x: i32,
+    start_y: i32,
+    end_x: i32,
+    end_y: i32,
+    color: (u8, u8, u8),
+    thickness: usize
+) {
+    // First render the scene to get current frame
+    render_window.render();
+
+    let size = render_window.get_size();
+    let width = size.0;
+    let height = size.1;
+
+    // Calculate bounds
+    let min_x = start_x
+        .min(end_x)
+        .max(0)
+        .min(width - 1);
+    let max_x = start_x
+        .max(end_x)
+        .max(0)
+        .min(width - 1);
+    let min_y = start_y
+        .min(end_y)
+        .max(0)
+        .min(height - 1);
+    let max_y = start_y
+        .max(end_y)
+        .max(0)
+        .min(height - 1);
+
+    // Get pixel data from window
+    let mut pixels = render_window.get_pixel_data();
+
+    // Draw horizontal lines (top and bottom)
+    for x in min_x..=max_x {
+        for offset in 0..thickness as i32 {
+            // Top line
+            let y_top = min_y + offset;
+            if y_top >= 0 && y_top < height {
+                let idx = (4 * (y_top * width + x)) as usize;
+                if idx + 3 < pixels.len() {
+                    pixels[idx] = color.0;
+                    pixels[idx + 1] = color.1;
+                    pixels[idx + 2] = color.2;
+                    pixels[idx + 3] = 255;
+                }
+            }
+
+            // Bottom line
+            let y_bottom = max_y - offset;
+            if y_bottom >= 0 && y_bottom < height {
+                let idx = (4 * (y_bottom * width + x)) as usize;
+                if idx + 3 < pixels.len() {
+                    pixels[idx] = color.0;
+                    pixels[idx + 1] = color.1;
+                    pixels[idx + 2] = color.2;
+                    pixels[idx + 3] = 255;
+                }
+            }
+        }
+    }
+
+    // Draw vertical lines (left and right)
+    for y in min_y..=max_y {
+        for offset in 0..thickness as i32 {
+            // Left line
+            let x_left = min_x + offset;
+            if x_left >= 0 && x_left < width {
+                let idx = (4 * (y * width + x_left)) as usize;
+                if idx + 3 < pixels.len() {
+                    pixels[idx] = color.0;
+                    pixels[idx + 1] = color.1;
+                    pixels[idx + 2] = color.2;
+                    pixels[idx + 3] = 255;
+                }
+            }
+
+            // Right line
+            let x_right = max_x - offset;
+            if x_right >= 0 && x_right < width {
+                let idx = (4 * (y * width + x_right)) as usize;
+                if idx + 3 < pixels.len() {
+                    pixels[idx] = color.0;
+                    pixels[idx + 1] = color.1;
+                    pixels[idx + 2] = color.2;
+                    pixels[idx + 3] = 255;
+                }
+            }
+        }
+    }
+
+    // Set pixels back to front buffer for immediate display
+    render_window.set_pixel_data(&pixels);
+
+    // Print coordinates for console feedback
+    eprint!("\rSelection: ({},{}) to ({},{})", start_x, start_y, end_x, end_y);
+    use std::io::Write;
+    let _ = std::io::stderr().flush();
+}
+
+/// Optimized rubber band drawing using a cached base frame (no re-rendering during drag).
+/// This provides smooth, flicker-free rectangle drawing by avoiding full 3D scene re-renders.
+///
+/// Use this when drawing repeatedly during mouse drag for best performance.
+/// The base_frame should be captured once at the start of the drag operation.
+pub fn draw_rubber_band_rectangle_cached(
+    render_window: &mut crate::RenderWindow,
+    base_frame: &[u8],
+    start_x: i32,
+    start_y: i32,
+    end_x: i32,
+    end_y: i32,
+    color: (u8, u8, u8),
+    thickness: usize
+) {
+    let size = render_window.get_size();
+    let width = size.0;
+    let height = size.1;
+
+    // Clone the base frame
+    let mut pixels = base_frame.to_vec();
+
+    // Calculate bounds
+    let min_x = start_x
+        .min(end_x)
+        .max(0)
+        .min(width - 1);
+    let max_x = start_x
+        .max(end_x)
+        .max(0)
+        .min(width - 1);
+    let min_y = start_y
+        .min(end_y)
+        .max(0)
+        .min(height - 1);
+    let max_y = start_y
+        .max(end_y)
+        .max(0)
+        .min(height - 1);
+
+    // Draw horizontal lines (top and bottom)
+    for x in min_x..=max_x {
+        for offset in 0..thickness as i32 {
+            // Top line
+            let y_top = min_y + offset;
+            if y_top >= 0 && y_top < height {
+                let idx = (4 * (y_top * width + x)) as usize;
+                if idx + 3 < pixels.len() {
+                    pixels[idx] = color.0;
+                    pixels[idx + 1] = color.1;
+                    pixels[idx + 2] = color.2;
+                    pixels[idx + 3] = 255;
+                }
+            }
+
+            // Bottom line
+            let y_bottom = max_y - offset;
+            if y_bottom >= 0 && y_bottom < height {
+                let idx = (4 * (y_bottom * width + x)) as usize;
+                if idx + 3 < pixels.len() {
+                    pixels[idx] = color.0;
+                    pixels[idx + 1] = color.1;
+                    pixels[idx + 2] = color.2;
+                    pixels[idx + 3] = 255;
+                }
+            }
+        }
+    }
+
+    // Draw vertical lines (left and right)
+    for y in min_y..=max_y {
+        for offset in 0..thickness as i32 {
+            // Left line
+            let x_left = min_x + offset;
+            if x_left >= 0 && x_left < width {
+                let idx = (4 * (y * width + x_left)) as usize;
+                if idx + 3 < pixels.len() {
+                    pixels[idx] = color.0;
+                    pixels[idx + 1] = color.1;
+                    pixels[idx + 2] = color.2;
+                    pixels[idx + 3] = 255;
+                }
+            }
+
+            // Right line
+            let x_right = max_x - offset;
+            if x_right >= 0 && x_right < width {
+                let idx = (4 * (y * width + x_right)) as usize;
+                if idx + 3 < pixels.len() {
+                    pixels[idx] = color.0;
+                    pixels[idx + 1] = color.1;
+                    pixels[idx + 2] = color.2;
+                    pixels[idx + 3] = 255;
+                }
+            }
+        }
+    }
+
+    // Set pixels directly without re-rendering
+    render_window.set_pixel_data(&pixels);
+
+    // Print coordinates for console feedback
+    eprint!("\rSelection: ({},{}) to ({},{})", start_x, start_y, end_x, end_y);
+    use std::io::Write;
+    let _ = std::io::stderr().flush();
 }
 
 impl Drop for InteractorStyleCustom {

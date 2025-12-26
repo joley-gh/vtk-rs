@@ -10,3 +10,6 @@ void render_window_add_renderer(vtkRenderWindow& window, vtkRenderer* renderer);
 void render_window_set_size(vtkRenderWindow& window, int width, int height);
 void render_window_set_window_name(vtkRenderWindow& window, rust::Str name);
 void render_window_render(vtkRenderWindow& window);
+void render_window_get_size(vtkRenderWindow& window, int& width, int& height);
+void render_window_get_pixel_data(vtkRenderWindow& window, unsigned char* data, int size);
+void render_window_set_pixel_data(vtkRenderWindow& window, const unsigned char* data, int size);

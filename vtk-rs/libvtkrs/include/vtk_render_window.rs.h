@@ -111,4 +111,19 @@ void cxxbridge1$192$render_window_render(::vtkRenderWindow &window) noexcept {
   void (*render_window_render$)(::vtkRenderWindow &) = ::render_window_render;
   render_window_render$(window);
 }
+
+void cxxbridge1$192$render_window_get_size(::vtkRenderWindow &window, ::std::int32_t &width, ::std::int32_t &height) noexcept {
+  void (*render_window_get_size$)(::vtkRenderWindow &, ::std::int32_t &, ::std::int32_t &) = ::render_window_get_size;
+  render_window_get_size$(window, width, height);
+}
+
+void cxxbridge1$192$render_window_get_pixel_data(::vtkRenderWindow &window, ::std::uint8_t *data, ::std::int32_t size) noexcept {
+  void (*render_window_get_pixel_data$)(::vtkRenderWindow &, ::std::uint8_t *, ::std::int32_t) = ::render_window_get_pixel_data;
+  render_window_get_pixel_data$(window, data, size);
+}
+
+void cxxbridge1$192$render_window_set_pixel_data(::vtkRenderWindow &window, ::std::uint8_t const *data, ::std::int32_t size) noexcept {
+  void (*render_window_set_pixel_data$)(::vtkRenderWindow &, ::std::uint8_t const *, ::std::int32_t) = ::render_window_set_pixel_data;
+  render_window_set_pixel_data$(window, data, size);
+}
 } // extern "C"

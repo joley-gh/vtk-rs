@@ -37,6 +37,7 @@ mod vtk_information;
 mod vtk_information_vector;
 mod vtk_int_array;
 mod vtk_interactor_style_custom;
+mod vtk_interactor_style_rubber_band_pick;
 mod vtk_interactor_style_trackball_camera;
 mod vtk_line_source;
 mod vtk_mapper;
@@ -59,6 +60,7 @@ mod vtk_tube_filter;
 mod vtk_glyph_3d;
 mod vtk_world_point_picker;
 mod vtk_point_picker;
+mod vtk_area_picker;
 
 // VTK Initialization
 // This function must be called before using any VTK objects
@@ -105,7 +107,14 @@ pub use vtk_information::*;
 pub use vtk_information_vector::*;
 pub use vtk_int_array::*;
 pub use vtk_interactor_style_custom::*;
+pub use vtk_interactor_style_rubber_band_pick::*;
 pub use vtk_interactor_style_trackball_camera::*;
+
+// Re-export interactor_style_custom submodule for rubber band drawing functions
+pub mod interactor_style_custom {
+    pub use super::vtk_interactor_style_custom::draw_rubber_band_rectangle;
+    pub use super::vtk_interactor_style_custom::draw_rubber_band_rectangle_cached;
+}
 pub use vtk_line_source::*;
 pub use vtk_mapper::*;
 pub use vtk_named_colors::*;
@@ -127,3 +136,4 @@ pub use vtk_tube_filter::*;
 pub use vtk_glyph_3d::*;
 pub use vtk_world_point_picker::*;
 pub use vtk_point_picker::*;
+pub use vtk_area_picker::*;

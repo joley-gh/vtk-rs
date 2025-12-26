@@ -9,7 +9,7 @@ mod ffi {
 
         fn vtk_point_picker_new() -> *mut vtkPointPicker;
         fn vtk_point_picker_delete(picker: Pin<&mut vtkPointPicker>);
-        
+
         unsafe fn vtk_point_picker_pick(
             picker: Pin<&mut vtkPointPicker>,
             x: f64,
@@ -17,9 +17,9 @@ mod ffi {
             z: f64,
             renderer: *mut vtkRenderer
         ) -> i32;
-        
+
         fn vtk_point_picker_get_point_id(picker: Pin<&mut vtkPointPicker>) -> i32;
-        
+
         fn vtk_point_picker_get_pick_position(
             picker: Pin<&mut vtkPointPicker>,
             x: &mut f64,
@@ -42,7 +42,7 @@ unsafe impl Sync for PointPicker {}
 impl PointPicker {
     /// Perform a pick operation at the specified display coordinates.
     /// Returns true if a point was successfully picked, false otherwise.
-    /// 
+    ///
     /// Unlike WorldPointPicker, PointPicker only succeeds when it hits actual
     /// geometry and can identify a specific point in the mesh.
     pub fn pick(&mut self, x: f64, y: f64, z: f64, renderer: &mut crate::Renderer) -> bool {

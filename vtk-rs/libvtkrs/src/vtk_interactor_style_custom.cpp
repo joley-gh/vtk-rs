@@ -1,28 +1,11 @@
 #include "vtk_interactor_style_custom.h"
 #include <vtkRenderWindowInteractor.h>
+#include <vtkRenderWindow.h>
 #include <cstdio>
-
-// Static initializer to confirm this file is being linked
-struct DebugInit {
-    DebugInit() {
-        fprintf(stderr, "DEBUG: vtk_interactor_style_custom.cpp loaded\n");
-        fflush(stderr);
-    }
-};
-static DebugInit debug_init;
 
 // Direct instantiation without VTK factory
 vtkInteractorStyleCustom* vtkInteractorStyleCustom::New() {
-    fprintf(stderr, "DEBUG: vtkInteractorStyleCustom::New() called\n");
-    fflush(stderr);
-    
-    // Just use plain new without any VTK machinery
-    vtkInteractorStyleCustom* result = new vtkInteractorStyleCustom();
-    
-    fprintf(stderr, "DEBUG: Created object at %p\n", (void*)result);
-    fflush(stderr);
-    
-    return result;
+    return new vtkInteractorStyleCustom();
 }
 
 vtkInteractorStyleCustom::vtkInteractorStyleCustom() {
@@ -49,31 +32,70 @@ void vtkInteractorStyleCustom::SetKeyPressCallbackId(int64_t callback_id) {
     this->key_press_callback_id = callback_id;
 }
 
+void vtkInteractorStyleCustom::SetSelectionMode(bool enabled) {
+    this->selection_mode = enabled;
+}
+
+bool vtkInteractorStyleCustom::GetSelectionMode() const {
+    return this->selection_mode;
+}
+
+void vtkInteractorStyleCustom::StartSelect() {
+    int* pos = this->Interactor->GetEventPosition();
+    this->start_position[0] = pos[0];
+    this->start_position[1] = pos[1];
+    this->end_position[0] = pos[0];
+    this->end_position[1] = pos[1];
+    this->moving = true;
+}
+
+void vtkInteractorStyleCustom::EndSelect() {
+    this->moving = false;
+}
+
 void vtkInteractorStyleCustom::OnLeftButtonDown() {
+    if (this->selection_mode) {
+        StartSelect();
+    }
     if (this->left_press_callback_id != 0) {
         int* pos = this->Interactor->GetEventPosition();
         vtk_rs_left_button_press_callback(this->left_press_callback_id, pos[0], pos[1]);
     }
-    // Call parent implementation for default camera controls
-    vtkInteractorStyleTrackballCamera::OnLeftButtonDown();
+    // Only call parent (camera controls) if not in selection mode
+    if (!this->selection_mode) {
+        vtkInteractorStyleTrackballCamera::OnLeftButtonDown();
+    }
 }
 
 void vtkInteractorStyleCustom::OnLeftButtonUp() {
+    if (this->selection_mode) {
+        EndSelect();
+    }
     if (this->left_release_callback_id != 0) {
         int* pos = this->Interactor->GetEventPosition();
         vtk_rs_left_button_release_callback(this->left_release_callback_id, pos[0], pos[1]);
     }
-    // Call parent implementation for default camera controls
-    vtkInteractorStyleTrackballCamera::OnLeftButtonUp();
+    // Only call parent (camera controls) if not in selection mode
+    if (!this->selection_mode) {
+        vtkInteractorStyleTrackballCamera::OnLeftButtonUp();
+    }
 }
 
 void vtkInteractorStyleCustom::OnMouseMove() {
+    if (this->selection_mode && this->moving) {
+        int* pos = this->Interactor->GetEventPosition();
+        this->end_position[0] = pos[0];
+        this->end_position[1] = pos[1];
+        // Rust callback will handle rubber band drawing
+    }
     if (this->mouse_move_callback_id != 0) {
         int* pos = this->Interactor->GetEventPosition();
         vtk_rs_mouse_move_callback(this->mouse_move_callback_id, pos[0], pos[1]);
     }
-    // Call parent implementation for default camera controls
-    vtkInteractorStyleTrackballCamera::OnMouseMove();
+    // Only call parent (camera controls) if not in selection mode
+    if (!this->selection_mode) {
+        vtkInteractorStyleTrackballCamera::OnMouseMove();
+    }
 }
 
 void vtkInteractorStyleCustom::OnKeyPress() {
@@ -89,12 +111,7 @@ void vtkInteractorStyleCustom::OnKeyPress() {
 // C-style wrapper functions with extern "C" linkage
 extern "C" {
     vtkInteractorStyleCustom* interactor_style_custom_new() {
-        fprintf(stderr, "DEBUG: C wrapper interactor_style_custom_new() called\n");
-        fflush(stderr);
-        vtkInteractorStyleCustom* result = vtkInteractorStyleCustom::New();
-        fprintf(stderr, "DEBUG: C wrapper got result: %p\n", (void*)result);
-        fflush(stderr);
-        return result;
+        return vtkInteractorStyleCustom::New();
     }
 
     void interactor_style_custom_delete(vtkInteractorStyleCustom* style) {
@@ -127,6 +144,31 @@ extern "C" {
         int64_t callback_id
     ) {
         style->SetKeyPressCallbackId(callback_id);
+    }
+
+    void interactor_style_custom_set_selection_mode(
+        vtkInteractorStyleCustom* style,
+        bool enabled
+    ) {
+        if (style) {
+            style->SetSelectionMode(enabled);
+        }
+    }
+
+    bool interactor_style_custom_is_moving(
+        vtkInteractorStyleCustom* style
+    ) {
+        return style ? style->GetMoving() : false;
+    }
+
+    void interactor_style_custom_get_selection_positions(
+        vtkInteractorStyleCustom* style,
+        int* start_x, int* start_y,
+        int* end_x, int* end_y
+    ) {
+        if (style) {
+            style->GetSelectionPositions(start_x, start_y, end_x, end_y);
+        }
     }
 
     // Test function to verify linking

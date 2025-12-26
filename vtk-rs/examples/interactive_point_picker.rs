@@ -10,7 +10,7 @@ fn main() {
     let mut renderer = Renderer::new();
     renderer.set_background(0.1, 0.1, 0.15);
 
-    // Create plane with visible resolution 
+    // Create plane with visible resolution
     let mut plane = PlaneSource::new();
     plane.set_x_resolution(20);
     plane.set_y_resolution(20);
@@ -80,7 +80,7 @@ fn main() {
 
                 let actor = Box::leak(Box::new(Actor::new()));
                 actor.set_mapper(mapper);
-                
+
                 let mut prop = actor.get_property();
                 prop.set_color(1.0, 0.2, 0.2);
 

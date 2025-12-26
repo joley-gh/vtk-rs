@@ -17,6 +17,31 @@
             }
         },
         {
+            "name": "Debug example 'arrow_demo'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=arrow_demo",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'arrow_demo'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=arrow_demo",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
             "name": "Debug example 'camera_control'",
             "type": "lldb",
             "request": "launch",
@@ -37,6 +62,206 @@
                 "args": [
                     "test",
                     "--example=camera_control",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
+            "name": "Debug example 'cell_array_demo'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=cell_array_demo",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'cell_array_demo'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=cell_array_demo",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
+            "name": "Debug example 'cone_demo'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=cone_demo",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'cone_demo'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=cone_demo",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
+            "name": "Debug example 'cone_simple'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=cone_simple",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'cone_simple'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=cone_simple",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
+            "name": "Debug example 'cube_demo'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=cube_demo",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'cube_demo'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=cube_demo",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
+            "name": "Debug example 'cylinder_demo'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=cylinder_demo",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'cylinder_demo'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=cylinder_demo",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
+            "name": "Debug example 'cylinder_simple'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=cylinder_simple",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'cylinder_simple'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=cylinder_simple",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
+            "name": "Debug example 'data_array_demo'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=data_array_demo",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'data_array_demo'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=data_array_demo",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
+            "name": "Debug example 'disk_demo'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=disk_demo",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'disk_demo'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=disk_demo",
                     "--package=vtk-rs"
                 ]
             }
@@ -67,6 +292,206 @@
             }
         },
         {
+            "name": "Debug example 'fem_beam_data'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=fem_beam_data",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'fem_beam_data'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=fem_beam_data",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
+            "name": "Debug example 'fem_beam_glyph'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=fem_beam_glyph",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'fem_beam_glyph'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=fem_beam_glyph",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
+            "name": "Debug example 'fem_beam_tubes'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=fem_beam_tubes",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'fem_beam_tubes'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=fem_beam_tubes",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
+            "name": "Debug example 'fem_beam_visualization'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=fem_beam_visualization",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'fem_beam_visualization'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=fem_beam_visualization",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
+            "name": "Debug example 'geometric_primitives'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=geometric_primitives",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'geometric_primitives'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=geometric_primitives",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
+            "name": "Debug example 'interactive_area_picker'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=interactive_area_picker",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'interactive_area_picker'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=interactive_area_picker",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
+            "name": "Debug example 'interactive_beam_builder'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=interactive_beam_builder",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'interactive_beam_builder'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=interactive_beam_builder",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
+            "name": "Debug example 'interactive_node_placement'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=interactive_node_placement",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'interactive_node_placement'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=interactive_node_placement",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
             "name": "Debug example 'interactive_picking'",
             "type": "lldb",
             "request": "launch",
@@ -87,6 +512,81 @@
                 "args": [
                     "test",
                     "--example=interactive_picking",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
+            "name": "Debug example 'interactive_point_picker'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=interactive_point_picker",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'interactive_point_picker'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=interactive_point_picker",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
+            "name": "Debug example 'interactive_world_point_picker'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=interactive_world_point_picker",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'interactive_world_point_picker'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=interactive_world_point_picker",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
+            "name": "Debug example 'line_source_demo'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=line_source_demo",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'line_source_demo'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=line_source_demo",
                     "--package=vtk-rs"
                 ]
             }
@@ -117,6 +617,81 @@
             }
         },
         {
+            "name": "Debug example 'plane_demo'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=plane_demo",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'plane_demo'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=plane_demo",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
+            "name": "Debug example 'points_demo'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=points_demo",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'points_demo'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=points_demo",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
+            "name": "Debug example 'polydata_beam'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=polydata_beam",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'polydata_beam'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=polydata_beam",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
             "name": "Debug example 'property_demo'",
             "type": "lldb",
             "request": "launch",
@@ -137,6 +712,31 @@
                 "args": [
                     "test",
                     "--example=property_demo",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
+            "name": "Debug example 'regular_polygon_demo'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=regular_polygon_demo",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'regular_polygon_demo'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=regular_polygon_demo",
                     "--package=vtk-rs"
                 ]
             }
@@ -167,26 +767,126 @@
             }
         },
         {
-            "name": "Debug example 'line_source_demo'",
+            "name": "Debug example 'test_area_picker'",
             "type": "lldb",
             "request": "launch",
             "cargo": {
                 "args": [
                     "run",
-                    "--example=line_source_demo",
+                    "--example=test_area_picker",
                     "--package=vtk-rs"
                 ]
             },
             "args": []
         },
         {
-            "name": "Debug unit tests in example 'line_source_demo'",
+            "name": "Debug unit tests in example 'test_area_picker'",
             "type": "lldb",
             "request": "launch",
             "cargo": {
                 "args": [
                     "test",
-                    "--example=line_source_demo",
+                    "--example=test_area_picker",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
+            "name": "Debug example 'test_cell_picker'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=test_cell_picker",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'test_cell_picker'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=test_cell_picker",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
+            "name": "Debug example 'test_line_minimal'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=test_line_minimal",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'test_line_minimal'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=test_line_minimal",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
+            "name": "Debug example 'test_standard_style'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=test_standard_style",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'test_standard_style'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=test_standard_style",
+                    "--package=vtk-rs"
+                ]
+            }
+        },
+        {
+            "name": "Debug example 'world_point_picker_demo'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "run",
+                    "--example=world_point_picker_demo",
+                    "--package=vtk-rs"
+                ]
+            },
+            "args": []
+        },
+        {
+            "name": "Debug unit tests in example 'world_point_picker_demo'",
+            "type": "lldb",
+            "request": "launch",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--example=world_point_picker_demo",
                     "--package=vtk-rs"
                 ]
             }
