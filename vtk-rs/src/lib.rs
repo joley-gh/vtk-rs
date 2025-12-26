@@ -67,6 +67,7 @@ mod vtk_parametric_torus;
 mod vtk_parametric_klein;
 mod vtk_parametric_mobius;
 mod vtk_superquadric_source;
+mod vtk_text_source;
 
 // VTK Initialization
 // This function must be called before using any VTK objects
@@ -149,3 +150,4 @@ pub use vtk_parametric_torus::*;
 pub use vtk_parametric_klein::*;
 pub use vtk_parametric_mobius::*;
 pub use vtk_superquadric_source::*;
+pub use vtk_text_source::*;
