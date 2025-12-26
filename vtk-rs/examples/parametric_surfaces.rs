@@ -1,7 +1,7 @@
 use vtk_rs::*;
 
 /// Helper function to demonstrate the general pattern for using ParametricFunctionSource.
-/// 
+///
 /// The ParametricFunctionSource takes ANY VTK parametric function and tessellates it
 /// into a polygonal mesh. The pattern is always:
 /// 1. Create a parametric function (torus, klein bottle, mobius, etc.)
@@ -18,30 +18,30 @@ fn create_parametric_actor(
     v_res: i32,
     color: (f64, f64, f64),
     opacity: f64,
-    position: (f64, f64, f64),
+    position: (f64, f64, f64)
 ) -> Actor {
     // Step 1: Create the parametric function source (tessellator)
     let mut source = ParametricFunctionSource::new();
-    
+
     // Step 2: Attach the parametric function to the source
     source.set_parametric_function(parametric_func_ptr);
-    
+
     // Step 3: Set resolution - higher values = smoother but more polygons
     // U and V are the parametric coordinates (like longitude/latitude)
     source.set_u_resolution(u_res);
     source.set_v_resolution(v_res);
-    
+
     // Step 4: Create mapper to convert polygons to graphics primitives
     let mut mapper = PolyDataMapper::new();
     mapper.set_input_connection(source.output_port());
-    
+
     // Step 5: Create actor with visual properties
     let mut actor = Actor::new();
     actor.set_mapper(&mut mapper);
     actor.get_property().set_color(color.0, color.1, color.2);
     actor.get_property().set_opacity(opacity);
     actor.set_position(position.0, position.1, position.2);
-    
+
     actor
 }
 
@@ -50,14 +50,13 @@ fn main() {
     println!("This example demonstrates the general pattern for using ParametricFunctionSource.");
     println!("VTK provides many parametric surfaces defined by mathematical equations.");
     println!("The ParametricFunctionSource tessellates these into polygon meshes.\n");
-    
-    
+
     // Create parametric torus
     println!("Creating Torus (donut shape)...");
     println!("  - Ring radius: 1.0, Cross-section radius: 0.3");
     println!("  - Parameters: u ∈ [0, 2π], v ∈ [0, 2π]");
     println!("  - Equation: x = (R + r*cos(v))*cos(u), y = (R + r*cos(v))*sin(u), z = r*sin(v)\n");
-    
+
     let mut torus = ParametricTorus::new();
     torus.set_ring_radius(1.0);
     torus.set_cross_section_radius(0.3);
@@ -65,11 +64,11 @@ fn main() {
     // Using the helper function to demonstrate the general pattern
     let mut torus_actor = create_parametric_actor(
         torus.as_parametric_function(),
-        50,  // U resolution
-        50,  // V resolution
-        (1.0, 0.3, 0.3),  // Red color
-        0.8,  // Opacity
-        (-3.0, 0.0, 0.0),  // Position
+        50, // U resolution
+        50, // V resolution
+        (1.0, 0.3, 0.3), // Red color
+        0.8, // Opacity
+        (-3.0, 0.0, 0.0) // Position
     );
 
     // Create parametric Klein bottle
@@ -77,16 +76,16 @@ fn main() {
     println!("  - No distinct 'inside' or 'outside'");
     println!("  - Parameters: u ∈ [0, 2π], v ∈ [0, 2π]");
     println!("  - A 4D surface embedded in 3D space\n");
-    
+
     let mut klein = ParametricKlein::new();
 
     let mut klein_actor = create_parametric_actor(
         klein.as_parametric_function(),
         50,
         50,
-        (0.3, 0.7, 0.7),  // Cyan
+        (0.3, 0.7, 0.7), // Cyan
         0.8,
-        (0.0, 0.0, 0.0),
+        (0.0, 0.0, 0.0)
     );
 
     // Create parametric Mobius strip
@@ -94,7 +93,7 @@ fn main() {
     println!("  - Single continuous side");
     println!("  - Parameters: u ∈ [0, 2π], v ∈ [-1, 1]");
     println!("  - Classic topology demonstration\n");
-    
+
     let mut mobius = ParametricMobius::new();
     mobius.set_radius(1.0);
 
@@ -102,9 +101,9 @@ fn main() {
         mobius.as_parametric_function(),
         50,
         50,
-        (1.0, 0.8, 0.2),  // Gold
+        (1.0, 0.8, 0.2), // Gold
         0.8,
-        (3.0, 0.0, 0.0),
+        (3.0, 0.0, 0.0)
     );
 
     println!("=== General Pattern Summary ===");
@@ -119,7 +118,6 @@ fn main() {
     println!("  - Topological: Klein, Mobius, Boy, Roman");
     println!("  - Mathematical: Supertoroid, Pseudosphere, Enneper");
     println!("  - And many more...\n");
-
 
     // Create renderer and window
     let mut renderer = Renderer::new();
