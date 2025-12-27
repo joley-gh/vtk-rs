@@ -54,6 +54,15 @@ impl Actor {
             unsafe { ffi::actor_set_mapper(self.ptr.as_mut(), mapper_ptr) }
         }
     }
+    
+    /// Set the mapper for this actor (DataSetMapper variant)
+    pub fn set_data_set_mapper(&mut self, mapper: &mut crate::DataSetMapper) {
+        unsafe {
+            // Cast DataSetMapper to vtkMapper (base class) through raw pointer
+            let mapper_ptr = mapper.as_mapper_ptr() as *mut ffi::vtkMapper;
+            ffi::actor_set_mapper(self.ptr.as_mut(), mapper_ptr)
+        }
+    }
 
     /// Get the property for this actor.
     /// Returns a non-owning reference to the property managed by the actor.

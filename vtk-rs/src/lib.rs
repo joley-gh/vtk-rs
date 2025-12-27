@@ -77,6 +77,8 @@ mod vtk_lookup_table;
 mod vtk_scalar_bar_actor;
 mod vtk_legend_box_actor;
 mod vtk_image_data;
+mod vtk_unstructured_grid;
+mod vtk_data_set_mapper;
 
 // VTK Initialization
 // This function must be called before using any VTK objects
@@ -168,3 +170,5 @@ pub use vtk_lookup_table::*;
 pub use vtk_scalar_bar_actor::*;
 pub use vtk_legend_box_actor::*;
 pub use vtk_image_data::*;
+pub use vtk_unstructured_grid::*;
+pub use vtk_data_set_mapper::*;
