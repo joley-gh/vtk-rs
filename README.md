@@ -3,19 +3,21 @@
 Rust bindings for the [Visualization Toolkit (VTK)](https://vtk.org/).
 
 ## ⚠️ Fork Notice
-This is a fork of [jonaspleyer/vtk-rs](https://github.com/jonaspleyer/vtk-rs) specifically optimized for **macOS ARM (Apple Silicon)**.
+This is a fork of [jonaspleyer/vtk-rs](https://github.com/jonaspleyer/vtk-rs) with focus on **macOS ARM (Apple Silicon)** development.
 
-### Platform-Specific Implementation
-- **Target Platform**: macOS with ARM architecture (M1/M2/M3 chips)
+### Platform Status
+- **Primary Platform**: macOS ARM (M1/M2/M3 chips) - Fully tested and supported
+- **Linux Support**: In development - Ubuntu 22.04/24.04 compatibility being established
 - **Modified Components**:
   - `vtk-rs/generate_headers.sh`: Updated `sed` commands for macOS compatibility
-  - `vtk-rs/build.rs`: Added custom build configuration for ARM architecture
-- **VTK Version**: Tested with VTK 9.3+ via Homebrew
+  - `vtk-rs/build.rs`: Custom build configuration for ARM architecture
+- **VTK Version**: Tested with VTK 9.3+ via Homebrew (macOS) and apt (Ubuntu)
 
 ### Key Changes from Upstream
 1. macOS ARM-specific sed command syntax in header generation
 2. Custom build.rs for proper linking on Apple Silicon
 3. Comprehensive geometric primitives implementation (Priority 1 complete)
+4. FEM visualization filters (WarpVector, ContourFilter, ClipPolyData)
 
 ## Scope
 The goal of this project is to provide safe and thin bindings.
@@ -33,24 +35,50 @@ In its current state, the crate will probably remain unusable for now.
 
 ## Testing
 
-| | stable | Env Flags + Command |
+GitHub Actions CI runs on push and pull requests:
+
+| Platform | Status | Environment |
 |---|---|---|
-| `macos-latest` | [![stable-macos-latest](https://img.shields.io/github/actions/workflow/status/joley-gh/vtk-rs/test_stable_macos-latest.yml?style=flat-square&label=CI)](https://github.com/joley-gh/vtk-rs/actions/workflows/test_stable_macos-latest.yml) |`cargo test` |
+| `macos-latest` | [![stable-macos-latest](https://img.shields.io/github/actions/workflow/status/joley-gh/vtk-rs/test_stable_macos-latest.yml?style=flat-square&label=CI)](https://github.com/joley-gh/vtk-rs/actions/workflows/test_stable_macos-latest.yml) | Homebrew VTK |
+| `macos-14` | [![stable-macos-14](https://img.shields.io/github/actions/workflow/status/joley-gh/vtk-rs/test_stable_macos-14.yml?style=flat-square&label=CI)](https://github.com/joley-gh/vtk-rs/actions/workflows/test_stable_macos-14.yml) | Homebrew VTK |
+| `macos-15` | [![stable-macos-15](https://img.shields.io/github/actions/workflow/status/joley-gh/vtk-rs/test_stable_macos-15.yml?style=flat-square&label=CI)](https://github.com/joley-gh/vtk-rs/actions/workflows/test_stable_macos-15.yml) | Homebrew VTK |
+| `ubuntu-22.04` | [![stable-ubuntu-22.04](https://img.shields.io/github/actions/workflow/status/joley-gh/vtk-rs/test_stable_ubuntu-22_04.yml?style=flat-square&label=CI)](https://github.com/joley-gh/vtk-rs/actions/workflows/test_stable_ubuntu-22_04.yml) | apt libvtk9-dev |
+| `ubuntu-24.04` | [![stable-ubuntu-24.04](https://img.shields.io/github/actions/workflow/status/joley-gh/vtk-rs/test_stable_ubuntu-24_04.yml?style=flat-square&label=CI)](https://github.com/joley-gh/vtk-rs/actions/workflows/test_stable_ubuntu-24_04.yml) | apt libvtk9-dev |
+
+All workflows include:
+- Header comparison checks
+- Documentation tests (`cargo test --doc`)
+- Build verification
+- License compliance (REUSE)
+- Dependency audits
 
 ## Dependencies
 
 This package relies on a system install of `vtk`.
 We currently only test versions `>=9.1`.
 
-### macOS ARM (Apple Silicon)
-For this fork, VTK must be installed via Homebrew:
+### macOS (Recommended)
+For this fork's primary platform, VTK must be installed via Homebrew:
 ```bash
 brew install vtk
 ```
 
-The build system is specifically configured for ARM architecture and uses modified `sed` commands compatible with macOS.
+The build system is configured for ARM architecture and uses modified `sed` commands compatible with macOS.
 
-### Other Platforms (Original Implementation)
+### Linux (In Development)
+For Ubuntu systems, install VTK development packages:
+```bash
+# Ubuntu 22.04 / 24.04
+sudo apt install libvtk9-dev libvtk9.1
+
+# Additional dependencies for full functionality
+sudo apt install clang cmake openmpi-dev
+```
+
+**Note**: Linux support is actively being improved. Some features may require additional configuration.
+
+### Other Platforms (Original Upstream)
+For reference, the original implementation supported:
 In some scenarios, it might be necessary to install additional dependencies.
 Otherwise, compilation of the `cmake` part might fail with spurious linker errors.
 
@@ -60,7 +88,7 @@ Otherwise, compilation of the `cmake` part might fail with spurious linker error
 | Ubuntu 22 & 24 | `apt install libvtk9.1 libvtk9-dev` |
 | Macos 13 & 14 | `brew install vtk` |
 
-**Note**: For macOS ARM users of this fork, ensure you're using the Homebrew installation as the build system expects ARM-specific paths and configurations.
+**Note**: For reference only - this fork focuses on macOS ARM and Linux Ubuntu platforms.
 
 ## Building
 `vtk-rs` will try to determine the path for `vtk` automatically.

@@ -9,8 +9,8 @@
 /// let mut sphere_source = vtk::SphereSource::new();
 /// let mut mapper = vtk::PolyDataMapper::new();
 ///
-/// // No explicit cast needed - .into() is called automatically
-/// mapper.set_input_connection(sphere_source.get_output_port().into());
+/// // No explicit cast needed - Into trait is called automatically
+/// mapper.set_input_connection(sphere_source.get_output_port());
 /// ```
 pub struct AlgorithmOutputPort {
     ptr: *mut std::ffi::c_void,

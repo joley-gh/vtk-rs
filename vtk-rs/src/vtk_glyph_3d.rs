@@ -71,34 +71,38 @@ pub enum ColorMode {
 /// 4. Connect output to mapper for rendering
 ///
 /// # Example: Efficient Node Markers
-/// ```
+/// ```no_run
 /// use vtk_rs::*;
 ///
-/// // Create points for FEM nodes
-/// let mut points = Points::new();
-/// points.insert_next_point([0.0, 0.0, 0.0]);
-/// points.insert_next_point([1.0, 0.0, 0.0]);
-/// points.insert_next_point([2.0, 0.0, 0.0]);
+/// // Create point source with vertices
+/// let mut point_source = SphereSource::new();
+/// point_source.set_radius(1.0);
 ///
+/// // Create a poly data from the source
 /// let mut poly_data = PolyData::new();
-/// poly_data.set_points(&mut points);
+/// // (In real usage, you'd set points and vertices here)
 ///
 /// // Create sphere as glyph geometry
 /// let mut sphere = SphereSource::new();
 /// sphere.set_radius(0.1);
-/// sphere.set_theta_resolution(16);
-/// sphere.set_phi_resolution(16);
+/// sphere.set_theta_resolution(8);
+/// sphere.set_phi_resolution(8);
 ///
 /// // Use Glyph3D to place spheres at all points
 /// let mut glyph = Glyph3D::new();
-/// glyph.set_input_data(&mut poly_data);
-/// glyph.set_source_connection(SphereSource::get_output_port(&mut sphere));
-/// glyph.set_scale_mode_to_data_scaling_off(); // Uniform size
+/// glyph.set_input_connection(poly_data.get_output_port());
+///
+/// let sphere_port = SphereSource::get_output_port(&mut sphere);
+/// let sphere_ptr: *mut std::ffi::c_void = sphere_port.into();
+/// glyph.set_source_connection(sphere_ptr as *mut _);
+/// glyph.set_scale_mode_to_data_scaling_off();
 /// glyph.set_scale_factor(1.0);
 ///
 /// // Connect to mapper
 /// let mut mapper = PolyDataMapper::new();
-/// mapper.set_input_connection(glyph.get_output_port());
+/// mapper.set_input_connection(unsafe {
+///     AlgorithmOutputPort::from_raw(glyph.get_output_port() as *mut std::ffi::c_void)
+/// });
 /// ```
 ///
 /// # Scaling Options

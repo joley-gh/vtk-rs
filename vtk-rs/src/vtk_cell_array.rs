@@ -46,6 +46,7 @@ impl CellArray {
     ///
     /// # Example
     /// ```
+    /// # use vtk_rs::CellArray;
     /// let mut cells = CellArray::new();
     /// // Create a beam from point 0 to point 1
     /// let beam_id = cells.insert_next_cell(&[0, 1]);

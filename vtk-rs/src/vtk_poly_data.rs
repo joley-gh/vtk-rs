@@ -56,6 +56,7 @@ impl PolyData {
     ///
     /// # Example
     /// ```
+    /// # use vtk_rs::{Points, PolyData};
     /// let mut points = Points::new();
     /// points.insert_next_point(0.0, 0.0, 0.0);
     /// points.insert_next_point(1.0, 0.0, 0.0);
@@ -80,6 +81,7 @@ impl PolyData {
     ///
     /// # Example
     /// ```
+    /// # use vtk_rs::{CellArray, PolyData};
     /// let mut cells = CellArray::new();
     /// cells.insert_next_cell(&[0, 1]); // Beam from point 0 to point 1
     /// cells.insert_next_cell(&[1, 2]); // Beam from point 1 to point 2
