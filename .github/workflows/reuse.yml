@@ -43,6 +43,12 @@ jobs:
         with:
           toolchain: ${{ inputs.toolchain }}
 
+      - name: Install cxxbridge-cmd
+        run: cargo install cxxbridge-cmd
+
+      - name: Regenerate headers
+        run: cd vtk-rs && ./generate_headers.sh
+
       - name: ${{ inputs.environment_vars }}  cargo check -vv
 
         run: ${{ inputs.environment_vars }} cargo check -vv
