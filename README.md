@@ -3,15 +3,17 @@
 Rust bindings for the [Visualization Toolkit (VTK)](https://vtk.org/).
 
 ## ⚠️ Fork Notice
-This is a fork of [jonaspleyer/vtk-rs](https://github.com/jonaspleyer/vtk-rs) with focus on **macOS ARM (Apple Silicon)** development.
+
+This is a fork of [jonaspleyer/vtk-rs](https://github.com/jonaspleyer/vtk-rs) focused exclusively on **macOS** (Apple Silicon recommended) and **VTK 9.3+**.
 
 ### Platform Status
-- **Primary Platform**: macOS ARM (M1/M2/M3 chips) - Fully tested and supported
-- **Linux Support**: In development - Ubuntu 22.04/24.04 compatibility being established
-- **Modified Components**:
-  - `vtk-rs/generate_headers.sh`: Updated `sed` commands for macOS compatibility
-  - `vtk-rs/build.rs`: Custom build configuration for ARM architecture
-- **VTK Version**: Tested with VTK 9.3+ via Homebrew (macOS) and apt (Ubuntu)
+- **Supported Platform**: macOS ARM (M1/M2/M3 chips) - Fully tested and supported
+- **VTK Version**: Only VTK 9.3+ via Homebrew is supported
+- **Linux/Windows Support**: Not supported in this fork
+
+#### Modified Components
+- `vtk-rs/generate_headers.sh`: Updated for macOS compatibility
+- `vtk-rs/build.rs`: Custom build configuration for ARM architecture
 
 ### Key Changes from Upstream
 1. macOS ARM-specific sed command syntax in header generation
@@ -27,12 +29,6 @@ This crate does in particular not aim at formulating higher-level interfaces suc
 [pyvista](https://docs.pyvista.org/) although such functionality could be added in the future within
 the scope of additional crates.
 
-## ❗ Note ❗
-This crate will be reworked using
-[vtkWrap](https://docs.vtk.org/en/latest/advanced/WrappingTools.html) in order to automate much of
-the process of generating the bindings.
-In its current state, the crate will probably remain unusable for now.
-
 ## Testing
 
 GitHub Actions CI runs on push and pull requests:
@@ -42,8 +38,6 @@ GitHub Actions CI runs on push and pull requests:
 | `macos-latest` | [![stable-macos-latest](https://img.shields.io/github/actions/workflow/status/joley-gh/vtk-rs/test_stable_macos-latest.yml?style=flat-square&label=CI)](https://github.com/joley-gh/vtk-rs/actions/workflows/test_stable_macos-latest.yml) | Homebrew VTK |
 | `macos-14` | [![stable-macos-14](https://img.shields.io/github/actions/workflow/status/joley-gh/vtk-rs/test_stable_macos-14.yml?style=flat-square&label=CI)](https://github.com/joley-gh/vtk-rs/actions/workflows/test_stable_macos-14.yml) | Homebrew VTK |
 | `macos-15` | [![stable-macos-15](https://img.shields.io/github/actions/workflow/status/joley-gh/vtk-rs/test_stable_macos-15.yml?style=flat-square&label=CI)](https://github.com/joley-gh/vtk-rs/actions/workflows/test_stable_macos-15.yml) | Homebrew VTK |
-| `ubuntu-22.04` | [![stable-ubuntu-22.04](https://img.shields.io/github/actions/workflow/status/joley-gh/vtk-rs/test_stable_ubuntu-22_04.yml?style=flat-square&label=CI)](https://github.com/joley-gh/vtk-rs/actions/workflows/test_stable_ubuntu-22_04.yml) | apt libvtk9-dev |
-| `ubuntu-24.04` | [![stable-ubuntu-24.04](https://img.shields.io/github/actions/workflow/status/joley-gh/vtk-rs/test_stable_ubuntu-24_04.yml?style=flat-square&label=CI)](https://github.com/joley-gh/vtk-rs/actions/workflows/test_stable_ubuntu-24_04.yml) | apt libvtk9-dev |
 
 All workflows include:
 - Header comparison checks
@@ -63,7 +57,7 @@ For this fork's primary platform, VTK must be installed via Homebrew:
 brew install vtk
 ```
 
-The build system is configured for ARM architecture and uses modified `sed` commands compatible with macOS.
+Linux and other platforms are not supported in this fork. The build system is configured for ARM architecture and uses macOS-compatible tools.
 
 ### Linux (In Development)
 For Ubuntu systems, install VTK development packages:
