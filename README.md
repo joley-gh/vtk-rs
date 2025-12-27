@@ -1,7 +1,3 @@
-[![Crates.io Version](https://img.shields.io/crates/v/vtk_rs?style=flat-square)](https://crates.io/crates/vtk-rs)
-[![Crates.io License](https://img.shields.io/crates/l/vtk_rs?style=flat-square)](https://github.com/jonaspleyer/vtk-rs/blob/main/LICENSE)
-[![Docs](https://img.shields.io/docsrs/vtk-rs?style=flat-square)](https://docs.rs/vtk-rs)
-
 # vtk-rs
 
 Rust bindings for the [Visualization Toolkit (VTK)](https://vtk.org/).
@@ -39,11 +35,7 @@ In its current state, the crate will probably remain unusable for now.
 
 | | stable | Env Flags + Command |
 |---|---|---|
-| `ubuntu-24.04` | [![stable-ubuntu-24_04](https://img.shields.io/github/actions/workflow/status/jonaspleyer/vtk-rs/test_stable_ubuntu-24_04.yml?style=flat-square&label=CI)](https://github.com/jonaspleyer/vtk-rs/actions/workflows/test_stable_ubuntu-24_04.yml) |`cargo test` |
-| `ubuntu-22.04` | [![stable-ubuntu-22_04](https://img.shields.io/github/actions/workflow/status/jonaspleyer/vtk-rs/test_stable_ubuntu-22_04.yml?style=flat-square&label=CI)](https://github.com/jonaspleyer/vtk-rs/actions/workflows/test_stable_ubuntu-22_04.yml) |`cargo test` |
-| `macos-14` | [![stable-macos-14](https://img.shields.io/github/actions/workflow/status/jonaspleyer/vtk-rs/test_stable_macos-14.yml?style=flat-square&label=CI)](https://github.com/jonaspleyer/vtk-rs/actions/workflows/test_stable_macos-14.yml) |`cargo test` |
-| `macos-15` | [![stable-macos-15](https://img.shields.io/github/actions/workflow/status/jonaspleyer/vtk-rs/test_stable_macos-15.yml?style=flat-square&label=CI)](https://github.com/jonaspleyer/vtk-rs/actions/workflows/test_stable_macos-15.yml) |`cargo test` |
-| `macos-16` | [![stable-macos-16](https://img.shields.io/github/actions/workflow/status/jonaspleyer/vtk-rs/test_stable_macos-16.yml?style=flat-square&label=CI)](https://github.com/jonaspleyer/vtk-rs/actions/workflows/test_stable_macos-16.yml) |`cargo test` |
+| `macos-latest` | [![stable-macos-latest](https://img.shields.io/github/actions/workflow/status/joley-gh/vtk-rs/test_stable_macos-latest.yml?style=flat-square&label=CI)](https://github.com/joley-gh/vtk-rs/actions/workflows/test_stable_macos-latest.yml) |`cargo test` |
 
 ## Dependencies
 
