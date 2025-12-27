@@ -89,6 +89,7 @@ add_library(vtkrs STATIC
    ${PROJECT_SOURCE_DIR}/include/vtk_lookup_table.h
    ${PROJECT_SOURCE_DIR}/include/vtk_scalar_bar_actor.h
    ${PROJECT_SOURCE_DIR}/include/vtk_legend_box_actor.h
+   ${PROJECT_SOURCE_DIR}/include/vtk_image_data.h
 )
 
 if (VTK094)
@@ -163,6 +164,7 @@ target_sources(vtkrs
         ${PROJECT_SOURCE_DIR}/src/vtk_lookup_table.cpp
         ${PROJECT_SOURCE_DIR}/src/vtk_scalar_bar_actor.cpp
         ${PROJECT_SOURCE_DIR}/src/vtk_legend_box_actor.cpp
+        ${PROJECT_SOURCE_DIR}/src/vtk_image_data.cpp
 )
 set_target_properties(vtkrs PROPERTIES LINKER_LANGUAGE CXX)
 

@@ -346,18 +346,23 @@ All text rendering and annotation features implemented:
 
 ---
 
-## Priority 5: Data Structures & Filters
+## Priority 5: Data Structures & Filters 🎯 CURRENT FOCUS
 
 Advanced data handling for volumetric and unstructured data.
 
-### P5.1 Image Data - `vtk_image_data.rs`
-- [ ] Create new module and C++ bindings
-- [ ] `new()` / `delete()`
-- [ ] `set_dimensions(nx, ny, nz)`
-- [ ] `set_spacing(dx, dy, dz)` / `set_origin(x, y, z)`
-- [ ] `allocate_scalars(type, components)`
-- [ ] `get_scalar_pointer()` - access voxel data
-- [ ] Structured grid data for volumetric visualization
+### P5.1 Image Data - `vtk_image_data.rs` ✅ COMPLETE
+- [x] Create new module and C++ bindings
+- [x] `new()` / `delete()`
+- [x] `set_dimensions(nx, ny, nz)` / `get_dimensions()`
+- [x] `set_spacing(dx, dy, dz)` / `get_spacing()`
+- [x] `set_origin(x, y, z)` / `get_origin()`
+- [x] `allocate_scalars(type, components)` with VtkDataType enum
+- [x] `set_scalar_component()` / `get_scalar_component()` - voxel data access
+- [x] `get_number_of_points()` / `get_number_of_cells()`
+- [x] `get_bounds()` - bounding box calculation
+- [x] Structured 3D grid for volumetric data
+- [x] Example: `image_data_demo.rs` - creates 10×10×10 grid with distance field
+- **Note**: Visual rendering requires volume mapper or contour filter (P5.3+)
 
 ### P5.2 Unstructured Grid - `vtk_unstructured_grid.rs`
 - [ ] Create new module and C++ bindings
